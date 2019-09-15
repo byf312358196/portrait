@@ -10,6 +10,9 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>youofananalySrv</module>
+        <module>youfanRegisterCenter</module>
+        <module>youfanInfoInService</module>
+        <module>youfancommon</module>
     </modules>
 
 

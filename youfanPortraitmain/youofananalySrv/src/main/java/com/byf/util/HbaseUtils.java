@@ -1,29 +1,24 @@
 package com.byf.util;
 
-import org.apache.flink.shaded.curator.org.apache.curator.shaded.com.google.common.collect.Table;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Created by Administrator on 2018/10/29 0029.
- */
-public class HbaseUtil {
+
+public class HbaseUtils {
     private static Admin admin = null;
     private static Connection conn = null;
     static{
         // 创建hbase配置对象
         Configuration conf = HBaseConfiguration.create();
-        conf.set("hbase.rootdir","hdfs://192.168.253.151:9000/hbase");
+        conf.set("hbase.rootdir","hdfs://192.168.0.108:9000/hbase");
         //使用eclipse时必须添加这个，否则无法定位
-        conf.set("hbase.zookeeper.quorum","192.168.253.151");
+        conf.set("hbase.zookeeper.quorum","192.168.0.108");
         conf.set("hbase.client.scanner.timeout.period", "600000");
         conf.set("hbase.rpc.timeout", "600000");
         try {
@@ -37,7 +32,7 @@ public class HbaseUtil {
     }
 
     /**
-     * 插入数据，create "baseuserscaninfo","time"
+     * 插入数据，create "userflaginfo","baseinfo"
      */
     public static void put(String tablename, String rowkey, String famliyname, Map<String,String> datamap) throws Exception {
         Table table = conn.getTable(TableName.valueOf(tablename));
@@ -58,11 +53,13 @@ public class HbaseUtil {
     }
 
     /**
-     * 获取数据，create "baseuserscaninfo","time"
-     * create "pindaoinfo","info"
-     * create "userinfo","info"
-     * create "productinfo","info"
-     * create "orderinfo","info"
+     *
+     * @param tablename
+     * @param rowkey
+     * @param famliyname
+     * @param colum
+     * @return
+     * @throws Exception
      */
     public static String getdata(String tablename, String rowkey, String famliyname,String colum) throws Exception {
         Table table = conn.getTable(TableName.valueOf(tablename));
@@ -88,11 +85,11 @@ public class HbaseUtil {
         table.put(put);
     }
 
-    public static void main(String[] args) throws Exception {
-        System.setProperty("hadoop.home.dir","E:\\soft\\hadoop-2.6.0-cdh5.5.1\\hadoop-2.6.0-cdh5.5.1");
+    /*public static void main(String[] args) throws Exception {
+        System.setProperty("hadoop.home.dir","F:\\portrait_project\\data\\hadoop");
         String string = getdata("baseuserscaninfo", "1", "time","fisrtvisittime");
         System.out.println(string);
-    }
+    }*/
 
 
 }
