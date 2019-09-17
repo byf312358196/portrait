@@ -4,9 +4,6 @@ import com.byf.entity.BrandLike;
 import com.byf.entity.UseTypeInfo;
 import org.apache.flink.api.common.functions.ReduceFunction;
 
-/**
- * Created by li on 2019/1/6.
- */
 public class UseTypeReduce implements ReduceFunction<UseTypeInfo> {
 
     @Override
